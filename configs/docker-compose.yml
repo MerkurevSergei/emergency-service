@@ -1,0 +1,24 @@
+services:
+  db:
+    container_name: postgres_es
+    image: postgres:13.2-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: emergency
+      POSTGRES_PASSWORD: pges
+  adminer:
+    container_name: adminer_es
+    image: adminer
+    restart: always
+    ports:
+      - 1080:8080
+  rabbit:
+    container_name: rabbit_es
+    hostname: rabbit
+    image: rabbitmq:3.8.14-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: rbes
+      RABBITMQ_DEFAULT_PASS: rbes
+    ports:
+      - 5672:5672
+      - 15672:15672
