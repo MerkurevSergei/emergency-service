@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    
+    <property name="DATE_NOW" value="getdate()" dbms="mssql"/>
+    <property name="LOGICAL_FILE_PATH" value="210523_initialization.xml" global="false"/>
+    <property name="AUTHOR" value="s.merkurev" global="false"/>
+    
+    <changeSet logicalFilePath="${LOGICAL_FILE_PATH}"
+               author="${AUTHOR}"
+               id="init_db">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="vehicle" />
+            </not>
+        </preConditions>
+        <createTable tableName="vehicle" remarks="Table">
+            <column name="type_id" type="bigint"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="vehicle" />
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
