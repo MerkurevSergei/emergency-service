@@ -6,6 +6,8 @@ services:
     environment:
       POSTGRES_DB: emergency
       POSTGRES_PASSWORD: pges
+    ports:
+      - 5432:5432
   adminer:
     container_name: adminer_es
     image: adminer
