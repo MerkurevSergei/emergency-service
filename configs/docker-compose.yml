@@ -25,6 +25,18 @@ services:
       - 5672:5672
       - 15672:15672
   zookeeper:
+    container_name: zookeeper_es
     image: wurstmeister/zookeeper
     ports:
       - 2181:2181
+  kafka:
+    container_name: kafka_es
+    image: wurstmeister/kafka
+    ports:
+      - 9092
+    environment:
+      DOCKER_API_VERSION: 1.22
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.99.100
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
