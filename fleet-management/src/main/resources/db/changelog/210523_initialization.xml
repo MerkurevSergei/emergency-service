@@ -5,21 +5,73 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     
+    <property name="__INTEGER" value="int" dbms="mssql"/>
+    <property name="__INTEGER" value="integer" dbms="oracle"/>
+    <property name="__INTEGER" value="int4" dbms="postgresql"/>
+    
+    <property name="__BIGINT" value="bigint" dbms="mssql"/>
+    <property name="__BIGINT" value="number(18)" dbms="oracle"/>
+    <property name="__BIGINT" value="bigint" dbms="postgresql"/>
+
+    <property name="__TEXT" value="nvarchar(2000)" dbms="mssql"/>
+    <property name="__TEXT" value="nvarchar2(2000)" dbms="oracle"/>
+    <property name="__TEXT" value="varchar(2000)" dbms="postgresql"/>
+
+    <property name="__DATE" value="date" dbms="mssql"/>
+    <property name="__DATE" value="date" dbms="oracle"/>
+    <property name="__DATE" value="date" dbms="postgresql"/>
+
+    <property name="__DATETIME" value="datetime" dbms="mssql"/>
+    <property name="__DATETIME" value="timestamp" dbms="oracle"/>
+    <property name="__DATETIME" value="timestamp" dbms="postgresql"/>
+    
+    <property name="__MONEY" value="money" dbms="mssql"/>
+    <property name="__MONEY" value="numeric(14,4)" dbms="postgresql"/>
+    <property name="__MONEY" value="NUMBER(14, 4)" dbms="oracle"/>
+    
     <property name="DATE_NOW" value="getdate()" dbms="mssql"/>
+    <property name="DATE_NOW" value="sysdate" dbms="oracle"/>
+    <property name="DATE_NOW" value="now()" dbms="postgresql"/>
     <property name="LOGICAL_FILE_PATH" value="210523_initialization.xml" global="false"/>
     <property name="AUTHOR" value="s.merkurev" global="false"/>
+
+    <property name="TABLE_NAME" value="vehicle" global="false"/>
+    
+    <property name="COLUMN_ID_NAME" value="id" global="false"/>
+    <property name="COLUMN_ID_REMARKS" value="ID" global="false"/>
+    <property name="COLUMN_ID_TYPE" value="${__BIGINT}" global="false"/>
+
+    <property name="COLUMN_TYPE_ID_NAME" value="type_id" global="false"/>
+    <property name="COLUMN_TYPE_ID_REMARKS" value="Type ID" global="false"/>
+    <property name="COLUMN_TYPE_ID_TYPE" value="${__BIGINT}" global="false"/>
     
     <changeSet logicalFilePath="${LOGICAL_FILE_PATH}"
                author="${AUTHOR}"
                id="init_db">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="vehicle" />
+                <tableExists tableName="${TABLE_NAME}" />
             </not>
         </preConditions>
-        <createTable tableName="vehicle" remarks="Table">
-            <column name="type_id" type="bigint"/>
+        
+        <createTable tableName="${TABLE_NAME}" remarks="Table">
+            <column name="${COLUMN_ID_NAME}"
+                    remarks="${COLUMN_ID_REMARKS}"
+                    type="${COLUMN_ID_TYPE}"
+                    autoIncrement="true">
+                <constraints primaryKey="true"
+                             nullable="false"
+                             primaryKeyName="pk_${TABLE_NAME}"/>
+            </column>
+
+            <column name="${COLUMN_TYPE_ID_NAME}"
+                    remarks="${COLUMN_TYPE_ID_REMARKS}"
+                    type="${COLUMN_TYPE_ID_TYPE}">
+                <constraints nullable="false"/>
+            </column>
+            
         </createTable>
+        
         <rollback>
             <dropTable tableName="vehicle" />
         </rollback>
