@@ -28,34 +28,8 @@ Docker и Docker Compose - Деплой проекта с нуля | Udemy
 Мои выдержки
 https://www.notion.so/Docker-and-Compose-98b73167f28c4622a82606cf506eaa75
 
-Шаг 2. Разработать сервис “Управление аварийным транспортом”
-Структура БД:
-vehicle
-id
-type_id
-model_id
-number
-capacity
-type
-id
-name
-model
-id
-name
-
-GET /emergency/vehicles - список ТС
-GET /emergency/vehicles/{id} - информация о ТС по id
-POST /emergency/vehicles - добавить ТС
-PUT /emergency/vehicles/{id} - редактировать ТС
-DELETE  /emergency/vehicles/{id} - удалить ТС
-
-GET /emergency/vehicles/types - список типов ТС
-GET /emergency/vehicles/types/{id} - информация о типе ТС
-POST /emergency/vehicles/types - добавить тип ТС
-PUT /emergency/vehicles/types/{id} - редактировать тип ТС
-DELETE  /emergency/vehicles/types/{id} - удалить тип ТС
-
-Шаг 3. Подготовить каркас сервиса “Управление поездками аварийного транспорта”
+[Сервис "Управление аварийным транспортом"](./fleet-management/README.md)  
+Сервис “Управление поездками аварийного транспорта”
 GET /emergency/rides
 GET /emergency/rides/{id}
 POST /emergency/rides
